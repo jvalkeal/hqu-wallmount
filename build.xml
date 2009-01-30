@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<project name="hqu-wallmount" default="dist" basedir=".">
+
+    <property name="dist.dir" location="dist"/>
+
+    
+    
+    <target name="dist">    
+	    <mkdir dir="${dist.dir}"/>
+		<zip file="${dist.dir}/wallmount.zip">
+			<fileset dir=".">
+				<include name="wallmount/**"/>
+			</fileset>
+		</zip>
+	</target>
+</project>

@@ -1,0 +1,38 @@
+body {
+	background-color: black;
+}
+
+.dojoxFloatingPaneContent {
+	background-color: black;
+}
+
+.dojoxFloatingPane {
+	border:4px solid #150517;
+}
+
+.dojoDndItem {
+	color: #e8e8e8;
+}
+
+.tundra .dojoxFloatingPaneTitle {
+	background:black none repeat scroll 0 0;
+	color: white;
+	border:1px solid #150517;
+}
+
+.tundra .dojoxFloatingCloseIcon {
+	background:black none repeat scroll 0 0;
+}
+
+.dojoxResizeHandle {
+	background-image:none;
+}
+
+.tundra .dojoxFloatingPaneTitle {
+	color: #e8e8e8;
+}
+
+.timestampContainer {
+	font-size: x-small;
+	color: #e8e8e8;
+}
