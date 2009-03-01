@@ -89,6 +89,8 @@ class WallmountController
         def geids = groupsWithUnfixedAlerts()
 
 		JSONArray jsonData = new JSONArray()
+        // Iterate through requested items.
+        // These are resources, groups or resource types.
         for(def i = 0; i< items.length(); i++){
         	def obj = items.getJSONObject(i)
         	def type = obj.getString('type')
@@ -99,6 +101,8 @@ class WallmountController
            	def a = id.split(':')
            	def status = "ok"
            	row.put('aeid',id)
+           	
+           	// Resource type
            	if(type == 'rt') {
                	if(a[0] == '1') {
                		list = platforms
@@ -113,9 +117,11 @@ class WallmountController
                		}
                	}           		
    	           	row.put('hyptype', 'rt')
+   	        // Resource   	
            	} else if(type == 'r') {
            		status = availabilityToStatus(getAvailabilityValue(id))
    	           	row.put('hyptype', 'r')
+   	        // Group
            	} else if(type == 'g') {
            		def val = AVAIL_UNKNOWN
            		def group = gMan.findResourceGroupById(user,a[1].toInteger())
@@ -137,10 +143,27 @@ class WallmountController
             			if(it == id) status = "work"
             		}
         			
-        		}
-        		eids.each{
-        			if(it == id)
-        				status = "work"
+        		} else if(type == 'r') {
+        			eids.each{
+        				if(it == id)
+        					status = "work"
+        			}
+        		} else if(type == 'rt') {
+        			// find related resources
+        			def aid = new AppdefEntityTypeID(id)
+        			def proto = rMan.findResourcePrototype(aid)
+        			def resources = rMan.findResourcesOfPrototype(proto,PageInfo.getAll(ResourceSortField.NAME, true))
+        			// if related resource under resource type
+        			// is found from unfixed alert list
+        			// mark rt as work
+        			resources.each{
+        				def aeid = it.resourceType.appdefType + ':' + it.instanceId
+            			eids.each{
+            				if(it == aeid)
+            					status = "work"
+            			}
+        			}
+        			
         		}
         	}
         	
