@@ -1,11 +1,11 @@
 <html>
     <head>
-    <script type="text/javascript" src="/js/dojo/1.1/dojo/dojo.js.uncompressed.js" djConfig="isDebug:false, parseOnLoad: true" ></script>
-   	<script type="text/javascript" src="/js/dojo/1.1/dojo/dnd/Container.js"></script>
-	<script type="text/javascript" src="/js/dojo/1.1/dojo/dnd/Selector.js"></script>
-	<script type="text/javascript" src="/js/dojo/1.1/dojo/dnd/Source.js"></script>
-	<script type="text/javascript" src="/js/dojo/1.1/dojo/dnd/Avatar.js"></script>
-	<script type="text/javascript" src="/js/dojo/1.1/dojo/dnd/Manager.js"></script>
+    <script type="text/javascript" src="/js/dojo/1.1.2/dojo/dojo.js.uncompressed.js" djConfig="isDebug:false, parseOnLoad: true" ></script>
+   	<script type="text/javascript" src="/js/dojo/1.1.2/dojo/dnd/Container.js"></script>
+	<script type="text/javascript" src="/js/dojo/1.1.2/dojo/dnd/Selector.js"></script>
+	<script type="text/javascript" src="/js/dojo/1.1.2/dojo/dnd/Source.js"></script>
+	<script type="text/javascript" src="/js/dojo/1.1.2/dojo/dnd/Avatar.js"></script>
+	<script type="text/javascript" src="/js/dojo/1.1.2/dojo/dnd/Manager.js"></script>
 
     
     <script type="text/javascript">
@@ -53,12 +53,12 @@
 
 
 	<style type="text/css">
-		@import "/js/dojo/1.1/dojo/resources/dojo.css"; 
-		@import "/js/dojo/1.1/dojo/resources/dnd.css";
-		@import "/js/dojo/1.1/dijit/themes/dijit.css";
-		@import "/js/dojo/1.1/dijit/themes/tundra/tundra.css";
-		@import "/js/dojo/1.1/dojox/layout/resources/FloatingPane.css"; 
-		@import "/js/dojo/1.1/dojox/layout/resources/ResizeHandle.css"; 
+		@import "/js/dojo/1.1.2/dojo/resources/dojo.css"; 
+		@import "/js/dojo/1.1.2/dojo/resources/dnd.css";
+		@import "/js/dojo/1.1.2/dijit/themes/dijit.css";
+		@import "/js/dojo/1.1.2/dijit/themes/tundra/tundra.css";
+		@import "/js/dojo/1.1.2/dojox/layout/resources/FloatingPane.css"; 
+		@import "/js/dojo/1.1.2/dojox/layout/resources/ResizeHandle.css"; 
 		<%
 			out.write('@import "../public/css/' + css + '";')
 		
