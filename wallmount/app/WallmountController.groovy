@@ -1,23 +1,24 @@
 import org.hyperic.hq.hqu.rendit.BaseController
-import org.hyperic.hq.application.HQApp
-import org.hyperic.hq.appdef.server.session.ServerManagerEJBImpl
-import org.hyperic.hq.appdef.server.session.ServiceManagerEJBImpl
-import org.hyperic.hq.appdef.server.session.PlatformManagerEJBImpl
-import org.hyperic.hq.authz.server.session.ResourceManagerEJBImpl
-import org.hyperic.hq.authz.server.session.ResourceGroupManagerEJBImpl
+import org.springframework.core.io.Resource
+import org.hyperic.hq.appdef.shared.ServerManager
+import org.hyperic.hq.appdef.shared.ServiceManager
+import org.hyperic.hq.appdef.shared.PlatformManager
+import org.hyperic.hq.authz.shared.ResourceManager
+import org.hyperic.hq.authz.shared.ResourceGroupManager
 import org.hyperic.hq.appdef.shared.AppdefEntityID
 import org.hyperic.hq.appdef.shared.AppdefEntityTypeID
 import org.hyperic.util.pager.PageControl
 import org.hyperic.hibernate.PageInfo
 import org.hyperic.hq.authz.server.session.ResourceSortField
 import org.hyperic.hq.galerts.server.session.GalertLogSortField
-import org.hyperic.hq.measurement.server.session.MeasurementManagerEJBImpl
+import org.hyperic.hq.measurement.shared.MeasurementManager
 import org.hyperic.hq.events.AlertSeverity
 import org.hyperic.hq.events.server.session.AlertSortField
 import org.hyperic.hq.measurement.MeasurementConstants
 import org.hyperic.hq.appdef.shared.AppdefEntityConstants
 import org.json.JSONArray
 import org.json.JSONObject
+import org.hyperic.hq.context.Bootstrap
 
 /**
  * Base controller for this plugin.
@@ -60,12 +61,13 @@ class WallmountController
                         'getServerTypes','getServiceTypes',
                         'saveLayout','getResources',
                         'getCompatibleGroups','getGroupMembers'])
-		this.serverMan = ServerManagerEJBImpl.one
-		this.serviceMan = ServiceManagerEJBImpl.one
-		this.platformMan = PlatformManagerEJBImpl.one
-		this.rMan = ResourceManagerEJBImpl.one
-		this.mMan = MeasurementManagerEJBImpl.one
-		this.gMan = ResourceGroupManagerEJBImpl.one
+		
+		this.serverMan = Bootstrap.getBean(ServerManager.class)
+		this.serviceMan = Bootstrap.getBean(ServiceManager.class)
+		this.platformMan = Bootstrap.getBean(PlatformManager.class)
+		this.rMan = Bootstrap.getBean(ResourceManager.class)
+		this.mMan = Bootstrap.getBean(MeasurementManager.class)
+		this.gMan = Bootstrap.getBean(ResourceGroupManager.class)
 	}
 	
 	/**
@@ -522,12 +524,16 @@ class WallmountController
     /**
      * Returns template directory for layouts
      */
-    private def getTemplateDir() {
-		def dir = new File(HQApp.instance.resourceDir, "wallmountTemplates")
-    	dir.mkdir() // creates if doesn't exist
-    	dir
-    }
-    
+	private def getTemplateDir() {
+		Resource templateResource = Bootstrap.getResource("WEB-INF/wallmountTemplates");
+		if(! templateResource.exists()) {
+			def dir = templateResource.file
+			dir.mkdir()
+			return dir;
+		}
+		return templateResource.getFile();
+	}
+
     /**
      * Returns list of stored template names.
      */
